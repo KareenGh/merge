@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalTime;
 
@@ -8,6 +9,7 @@ public class Warning implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = -8224097662914849956L;
 	
 	private String message;
