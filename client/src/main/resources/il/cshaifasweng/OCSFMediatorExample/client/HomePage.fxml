@@ -64,7 +64,7 @@
             </LinearGradient>
          </textFill>
       </Button>
-      <Button fx:id="SignUpButton" layoutX="173.0" layoutY="233.0" mnemonicParsing="false" onAction="#SignUpButton" onMouseClicked="#SingUp" prefHeight="64.0" prefWidth="171.0" text="SignUp">
+      <Button fx:id="SignUpButton" layoutX="173.0" layoutY="233.0" mnemonicParsing="false" onAction="#SignUpButton" prefHeight="64.0" prefWidth="171.0" text="SignUp">
          <font>
             <Font name="Georgia Pro Cond Semibold Italic" size="31.0" />
          </font>

@@ -1,8 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -37,6 +35,10 @@ public class Registration {
         CreditCard = creditCard;
         ExpiryDate = expiryDate;
         AccountType = accountType;
+    }
+
+    public Registration() {
+
     }
 
     public String getFirstName() {
