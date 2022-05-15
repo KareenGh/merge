@@ -1,29 +1,26 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.Registration;
+import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
-
-//import javax.imageio.spi.ServiceRegistry;
-import javax.persistence.*;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import java.io.IOException;
-import java.util.List;
-
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
-import il.cshaifasweng.OCSFMediatorExample.entities.Registration;
-//import il.cshaifasweng.OCSFMediatorExample.entities.User;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.io.IOException;
+import java.util.List;
+
+//import javax.imageio.spi.ServiceRegistry;
+//import il.cshaifasweng.OCSFMediatorExample.entities.User;
 
 public class SimpleServer extends AbstractServer {
 	private static Session session;
@@ -60,7 +57,9 @@ public class SimpleServer extends AbstractServer {
 
 	private static void initializeData(){
 		Registration client1 = new Registration("Kareen", "Ghattas" , "123456789" , "kareen@gmail.com" , "0505123456" , "KareenGh" , "123456789" , "client" , "2233445566" , "1/1/2023" , "Store Account");
+		Registration client2 = new Registration("Natalie" , "Nakkara" , "234789456" , "Natalie@gmail.com" , "0524789000" , "NatalieNK" , "22nN90999" , "client" , "1234561299" , "5/8/2024" , "Chain Account");
 		session.save(client1);
+		session.save(client2);
 
 	}
 
