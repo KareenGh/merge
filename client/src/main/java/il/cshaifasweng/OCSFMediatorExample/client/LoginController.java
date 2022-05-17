@@ -1,15 +1,16 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 
 public class LoginController {
 
@@ -36,13 +37,25 @@ public class LoginController {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-        Pane1.getChildren().setAll(pane);
+//        AnchorPane pane = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+//        Pane1.getChildren().setAll(pane);
+        try {
+            App.setRoot("HomePage");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void loginButton(ActionEvent event) {
-
+        User User = new User(UserNameButton.getText(), PasswordButton.getText());
+        try {
+            SimpleClient.getClient().sendToServer(new Message("#LoginRequest", User));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML

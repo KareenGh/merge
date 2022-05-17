@@ -1,18 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.Registration;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
 public class SignUpController implements Initializable {
 
@@ -25,7 +24,7 @@ public class SignUpController implements Initializable {
     @FXML
     private ChoiceBox<String> AccountType;
 
-    private String[] Accounts = {"Store Account" , "Chain Account: Shop in any Store" , "One year subscription: Pay 100nis and get 10% discount in every purchase over 50nis"};
+    private String[] Accounts = {"Store Account", "Chain Account: Shop in any Store", "One year subscription: Pay 100nis and get 10% discount in every purchase over 50nis"};
 
     @FXML
     private Button Back;
@@ -65,8 +64,14 @@ public class SignUpController implements Initializable {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-        Pane1.getChildren().setAll(pane);
+//        AnchorPane pane = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+//        Pane1.getChildren().setAll(pane);
+        try {
+            App.setRoot("HomePage");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -74,8 +79,57 @@ public class SignUpController implements Initializable {
         LocalDate Expiry_Date = ExpiryDate.getValue();
     }
 
+    void CheckInputs(String password, String ID1, String PhoneNum) {
+//        try {
+//            SimpleClient.getClient().sendToServer(new Message("#CheckID", ID1));
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+        if (!password.matches("[a-zA-Z0-9]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Illegal Password");
+            alert.setContentText("Please enter new Password: it most contain letters and numbers only");
+//            Password.setText("Enter new Password: it most contain letters and numbers only");
+//            alert.showAndWait();
+            alert.show();
+            Password.setText("");
+        } else if (ID1.length() != 9 || !ID1.matches("[0-9]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Illegal ID");
+            alert.setContentText("Please enter your ID");
+            alert.showAndWait();
+            ID.setText("");
+        } else if (PhoneNum.length() != 10) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Illegal Phone Number");
+            alert.setContentText("Please enter your Phone Number");
+            alert.showAndWait();
+            PhoneNumber.setText("");
+        }
+    }
+
     @FXML
     void SignUp(ActionEvent event) {
+//        String password = Password.getText();
+//        String Id = ID.getText();
+//        String PhoneNum = PhoneNumber.getText();
+
+        CheckInputs(Password.getText(), ID.getText(), PhoneNumber.getText());
+
+//        System.out.println(FirstName.getText() + LastName.getText() + ID.getText() + Email.getText() + PhoneNumber.getText() + UserName.getText() + Password.getText() + CreditCard.getText() + ExpiryDate.getValue().toString() + AccountType.getValue().toString());
+
+        Registration newClient = new Registration(FirstName.getText(), LastName.getText(), ID.getText(),
+                Email.getText(), PhoneNumber.getText(), UserName.getText(), Password.getText(), "client",
+                CreditCard.getText(), ExpiryDate.getValue().toString(), AccountType.getValue().toString());
+//        System.out.format(newClient.getFirstName());
+
+        try {
+            SimpleClient.getClient().sendToServer(new Message("#SignUpRequest", newClient));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 

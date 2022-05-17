@@ -1,19 +1,20 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "Registration")
 
-public class Registration {
-    private static final long serialVersionUID = 4412085390748840478L;
+public class Registration implements Serializable {
+    private static final long serialVersionUID = 2082130701112248231L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String FirstName;
     private String LastName;
-    private String ID;
+    private String Client_ID;
     private String Email;
     private String PhoneNumber;
     private String UserName;
@@ -22,11 +23,12 @@ public class Registration {
     private String CreditCard;
     private String ExpiryDate;
     private String AccountType;
+    private Boolean Registered;
 
     public Registration(String firstName, String lastName, String ID, String email, String phoneNumber, String userName, String password, String status, String creditCard, String expiryDate, String accountType) {
         FirstName = firstName;
         LastName = lastName;
-        this.ID = ID;
+        this.Client_ID = ID;
         Email = email;
         PhoneNumber = phoneNumber;
         UserName = userName;
@@ -35,6 +37,8 @@ public class Registration {
         CreditCard = creditCard;
         ExpiryDate = expiryDate;
         AccountType = accountType;
+        setRegistered(false);
+//        Registered = registered;
     }
 
     public Registration() {
@@ -57,12 +61,12 @@ public class Registration {
         LastName = lastName;
     }
 
-    public String getID() {
-        return ID;
+    public String getClient_ID() {
+        return Client_ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setClient_ID(String ID) {
+        this.Client_ID = ID;
     }
 
     public String getEmail() {
@@ -127,5 +131,13 @@ public class Registration {
 
     public void setAccountType(String accountType) {
         AccountType = accountType;
+    }
+
+    public Boolean getRegistered() {
+        return Registered;
+    }
+
+    public void setRegistered(Boolean registered) {
+        Registered = registered;
     }
 }
