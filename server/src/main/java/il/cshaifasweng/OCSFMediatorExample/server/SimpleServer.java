@@ -90,7 +90,7 @@ public class SimpleServer extends AbstractServer {
                 List<Registration> clients = getAll(Registration.class);
                 for (Registration registration : clients) {
                     if (registration.getClient_ID().equalsIgnoreCase(ID1)) {
-                        System.out.print("foundddddddddddd\n");
+//                        System.out.print("foundddddddddddd\n");
 //							registration.setRegistered(true);
                         Warning new_warning = new Warning("Dear Client,you are already Signed up.\n Please go to Login.");
                         client.sendToClient(new Message("#SignUpWarning", new_warning));
@@ -100,7 +100,7 @@ public class SimpleServer extends AbstractServer {
                         session.save(newSignUp);
                         session.flush();
                         session.getTransaction().commit();
-                        Warning newWarning = new Warning("Dear " + newSignUp.getUserName() + "welcome to Lilach. you have been signed up successfully");
+                        Warning newWarning = new Warning("Dear " + newSignUp.getUserName() + " welcome to Lilach. you have been signed up successfully");
                         client.sendToClient(new Message("#MemberSignedUpSucces", newWarning));
                         return;
                     }
@@ -121,8 +121,15 @@ public class SimpleServer extends AbstractServer {
                 for (Registration registration : clients){
                     if(registration.getUserName().equalsIgnoreCase(UserName)){
                         if(registration.getPassword().equalsIgnoreCase(Password)){
-                            client.sendToClient(new Message("#LogInSucess", registration));
-                            return;
+                            if(registration.getStatus().equalsIgnoreCase("blocked client")){
+                                Warning new_warning = new Warning("You're account have been blocked. Please contact customer service");
+                                client.sendToClient(new Message("#BlockedAccount", new_warning));
+                                return;
+                            }
+                            else{
+                                client.sendToClient(new Message("#LogInSucess", registration));
+                                return;
+                            }
                         }
                         else{
                             Warning new_warning = new Warning("You have entered invalid input. Please try again ");
