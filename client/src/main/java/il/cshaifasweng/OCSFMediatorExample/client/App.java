@@ -8,11 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.io.IOException;
 
 /**
  * JavaFX App
@@ -60,8 +59,21 @@ public class App extends Application {
         	);
         	alert.show();
     	});
-    	
     }
+
+    @Subscribe
+    public void onConfirmationEvent(ConfirmationEvent event) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.INFORMATION,
+                    String.format("Message: %s\nTimestamp: %s\n",
+                            event.getConfirmation().getMessage(),
+                            event.getConfirmation().getTime().toString())
+            );
+            alert.show();
+        });
+    }
+
+
 
 	public static void main(String[] args) {
         launch();

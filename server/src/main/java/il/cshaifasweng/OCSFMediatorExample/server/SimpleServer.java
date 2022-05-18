@@ -1,9 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.Registration;
-import il.cshaifasweng.OCSFMediatorExample.entities.User;
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
@@ -100,8 +97,8 @@ public class SimpleServer extends AbstractServer {
                         session.save(newSignUp);
                         session.flush();
                         session.getTransaction().commit();
-                        Warning newWarning = new Warning("Dear " + newSignUp.getUserName() + " welcome to Lilach. you have been signed up successfully");
-                        client.sendToClient(new Message("#MemberSignedUpSucces", newWarning));
+                        Confirmation confirmation = new Confirmation("Dear " + newSignUp.getUserName() + " welcome to Lilach. \n You have been signed up successfully");
+                        client.sendToClient(new Message("#SignUpSuccess", confirmation));
                         return;
                     }
                 }
