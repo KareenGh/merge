@@ -134,6 +134,11 @@ public class SimpleServer extends AbstractServer {
                             return;
                         }
                     }
+                    else{
+                        Warning new_warning = new Warning("You have entered invalid input. Please try again ");
+                        client.sendToClient(new Message("#LoginWarning", new_warning));
+                        return;
+                    }
 
                 }
 
